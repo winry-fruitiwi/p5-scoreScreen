@@ -9,6 +9,10 @@ let instructions
 
 let accuracyPos, timePos, WPMPos
 
+const accuracy = 32
+const time = "0:29"
+const wpm = 60
+const wpmRequirement = 61
 
 function preload() {
     font = loadFont('data/meiryo.ttf')
@@ -53,12 +57,22 @@ function draw() {
     circle(timePos.x, timePos.y, 85)
     circle(WPMPos.x, WPMPos.y, 120)
 
+    // display the yellow arcs around the different widgets.
+    stroke(48, 89, 100)
+    strokeWeight(2)
+
+    let accuracyStopAngle = map(accuracy, 0, 100, 0, TWO_PI)
+    let wpmStopAngle = map(wpm, 0, wpmRequirement * PI, 0, 3 * PI)
+
+    arc(accuracyPos.x, accuracyPos.y, 140, 140, 0, accuracyStopAngle)
+    arc(WPMPos.x, WPMPos.y, 140, 140, PI, wpmStopAngle)
+
     // display text in different widgets.
     // accuracy
     fill(0, 0, 100)
     noStroke()
     textSize(36)
-    text("98%", accuracyPos.x, accuracyPos.y - 5)
+    text(accuracy + "%", accuracyPos.x, accuracyPos.y - 5)
     textSize(16)
     text("\nreal accuracy\n98%", accuracyPos.x, accuracyPos.y - 10)
 
@@ -68,7 +82,7 @@ function draw() {
 
     // WPM
     textSize(36)
-    text("99", WPMPos.x, WPMPos.y - 10)
+    text(wpm, WPMPos.x, WPMPos.y)
     textSize(16)
     fill(201, 96, 83)
     text("WPM", WPMPos.x, WPMPos.y + 20)
