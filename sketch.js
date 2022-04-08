@@ -9,10 +9,10 @@ let instructions
 
 let accuracyPos, timePos, WPMPos
 
-const accuracy = 32
+const accuracy = 97
 const time = "0:29"
-const wpm = 60
-const wpmRequirement = 61
+const wpm = 68
+const wpmRequirement = 50
 
 function preload() {
     font = loadFont('data/meiryo.ttf')
@@ -62,7 +62,7 @@ function draw() {
     strokeWeight(2)
 
     let accuracyStopAngle = map(accuracy, 0, 100, 0, TWO_PI)
-    let wpmStopAngle = map(wpm, 0, wpmRequirement * PI, 0, 3 * PI)
+    let wpmStopAngle = map(wpm, 0, wpmRequirement * 2, PI, 3 * PI)
 
     arc(accuracyPos.x, accuracyPos.y, 140, 140, 0, accuracyStopAngle)
     arc(WPMPos.x, WPMPos.y, 140, 140, PI, wpmStopAngle)
@@ -74,7 +74,9 @@ function draw() {
     textSize(36)
     text(accuracy + "%", accuracyPos.x, accuracyPos.y - 5)
     textSize(16)
-    text("\nreal accuracy\n98%", accuracyPos.x, accuracyPos.y - 10)
+    text(`
+real accuracy
+${accuracy}%`, accuracyPos.x, accuracyPos.y - 10)
 
     // time
     textSize(23)
@@ -90,17 +92,16 @@ function draw() {
     displayDebugCorner()
 }
 
-
 /** 🧹 shows debugging info using text() 🧹 */
 function displayDebugCorner() {
+    textFont(font, 14)
     const LEFT_MARGIN = 10
     const DEBUG_Y_OFFSET = height - 10 /* floor of debug corner */
     const LINE_SPACING = 2
     const LINE_HEIGHT = textAscent() + textDescent() + LINE_SPACING
     fill(0, 0, 100, 100) /* white */
-    strokeWeight(0)
+    noStroke()
 
-    textFont(font, 14)
     textAlign(LEFT)
 
     text(`frameCount: ${frameCount}`,
